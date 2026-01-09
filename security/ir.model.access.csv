@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_project_study_user,project.study.user,model_project_study,project_study.group_project_study_user,1,1,1,0
+access_project_study_manager,project.study.manager,model_project_study,project_study.group_project_study_manager,1,1,1,1
+access_project_study_tag_user,project.study.tag.user,model_project_study_tag,project_study.group_project_study_user,1,1,1,0
+access_project_study_tag_manager,project.study.tag.manager,model_project_study_tag,project_study.group_project_study_manager,1,1,1,1
+access_report_project_study_user,report.project.study.user,model_report_project_study,project_study.group_project_study_user,1,0,0,0
+access_report_project_study_manager,report.project.study.manager,model_report_project_study,project_study.group_project_study_manager,1,0,0,0

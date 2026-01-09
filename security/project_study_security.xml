@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- 
+    =====================================================
+    ĐỊNH NGHĨA CATEGORY RIÊNG
+    =====================================================
+    -->
+    <record id="module_category_project_study" model="ir.module.category">
+        <field name="name">Project Study</field>
+        <field name="description">Module quản lý Project Study</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <!-- 
+    =====================================================
+    ĐỊNH NGHĨA GROUPS
+    =====================================================
+    -->
+    
+    <!-- Group: Project Study User - kế thừa quyền Project User -->
+    <record id="group_project_study_user" model="res.groups">
+        <field name="name">Project Study User</field>
+        <field name="implied_ids" eval="[(4, ref('base.group_user')), (4, ref('project.group_project_user'))]"/>
+        <field name="category_id" ref="module_category_project_study"/>
+    </record>
+
+    <!-- Group: Project Study Manager - kế thừa quyền Project Manager -->
+    <record id="group_project_study_manager" model="res.groups">
+        <field name="name">Project Study Manager</field>
+        <field name="category_id" ref="module_category_project_study"/>
+        <field name="implied_ids" eval="[(4, ref('group_project_study_user')), (4, ref('project.group_project_manager'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+
+    <!-- 
+    =====================================================
+    SECURITY RULES (Record Rules)
+    =====================================================
+    -->
+    <data noupdate="1">
+        <!-- Rule: Manager xem tất cả -->
+        <record id="project_study_rule_manager" model="ir.rule">
+            <field name="name">Project Study: Manager sees all</field>
+            <field name="model_id" ref="model_project_study"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_project_study_manager'))]"/>
+        </record>
+
+        <!-- Rule: User chỉ xem record mình tạo hoặc được giao -->
+        <record id="project_study_rule_user" model="ir.rule">
+            <field name="name">Project Study: User sees own or assigned</field>
+            <field name="model_id" ref="model_project_study"/>
+            <field name="domain_force">[
+                '|',
+                    ('create_uid', '=', user.id),
+                    ('user_id', '=', user.id)
+            ]</field>
+            <field name="groups" eval="[(4, ref('group_project_study_user'))]"/>
+        </record>
+
+        <!-- Rule: Multi-company -->
+        <record id="project_study_rule_company" model="ir.rule">
+            <field name="name">Project Study: multi-company</field>
+            <field name="model_id" ref="model_project_study"/>
+            <field name="domain_force">[('company_id', 'in', company_ids + [False])]</field>
+        </record>
+    </data>
+</odoo>

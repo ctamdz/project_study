@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Graph View - Biểu đồ cột số lượng Study theo User -->
+    <record id="view_report_project_study_graph" model="ir.ui.view">
+        <field name="name">report.project.study.graph</field>
+        <field name="model">report.project.study</field>
+        <field name="arch" type="xml">
+            <graph string="Study Analysis" type="bar" sample="1">
+                <field name="user_id"/>
+                <field name="study_count" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <!-- Pivot View -->
+    <record id="view_report_project_study_pivot" model="ir.ui.view">
+        <field name="name">report.project.study.pivot</field>
+        <field name="model">report.project.study</field>
+        <field name="arch" type="xml">
+            <pivot string="Study Analysis" sample="1">
+                <field name="user_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="study_count" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- Search View -->
+    <record id="view_report_project_study_search" model="ir.ui.view">
+        <field name="name">report.project.study.search</field>
+        <field name="model">report.project.study</field>
+        <field name="arch" type="xml">
+            <search string="Study Analysis">
+                <field name="name"/>
+                <field name="user_id"/>
+                <filter string="My Studies" name="my_studies" domain="[('user_id', '=', uid)]"/>
+                <separator/>
+                <filter string="To Do" name="todo" domain="[('state', '=', 'todo')]"/>
+                <filter string="In Progress" name="in_progress" domain="[('state', '=', 'in_progress')]"/>
+                <filter string="Review" name="review" domain="[('state', '=', 'review')]"/>
+                <filter string="Done" name="done" domain="[('state', '=', 'done')]"/>
+                <separator/>
+                <group expand="0" string="Group By">
+                    <filter string="Assigned To" name="group_user" context="{'group_by': 'user_id'}"/>
+                    <filter string="State" name="group_state" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_report_project_study" model="ir.actions.act_window">
+        <field name="name">Study Analysis</field>
+        <field name="res_model">report.project.study</field>
+        <field name="view_mode">graph,pivot</field>
+        <field name="search_view_id" ref="view_report_project_study_search"/>
+    </record>
+
+    <!-- Menu trong Reporting -->
+    <menuitem
+        id="menu_report_project_study"
+        name="Study Analysis"
+        parent="project.menu_project_report"
+        action="action_report_project_study"
+        sequence="20"
+    />
+</odoo>

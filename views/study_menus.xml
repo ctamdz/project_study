@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Ẩn menu Tasks của Project -->
+    <record id="project.menu_project_management" model="ir.ui.menu">
+        <field name="active" eval="False"/>
+    </record>
+
+    <!-- Menu Project Study nằm dưới menu Project -->
+    <menuitem
+        id="menu_project_study_root"
+        name="Project Study"
+        parent="project.menu_main_pm"
+        sequence="5"
+    />
+
+    <!-- Menu con Study -->
+    <menuitem
+        id="menu_project_study"
+        name="Study"
+        parent="menu_project_study_root"
+        action="project_study_action"
+        sequence="10"
+    />
+
+    <!-- Study Tags nằm trong Configuration chung của Project -->
+    <menuitem
+        id="menu_project_study_tag"
+        name="Study Tags"
+        parent="project.menu_project_config"
+        action="project_study_tag_action"
+        sequence="20"
+    />
+</odoo>
