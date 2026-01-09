@@ -18,28 +18,31 @@ Module này giúp quản lý các Study trong dự án với các tính năng:
 - **Odoo version**: 17.0
 - **Dependencies**: `project` module
 
-## 📁 Cấu trúc Module
+## 📂 Cấu trúc Module
+
+```text
 project_study/
-├── init.py
-├── manifest.py
+├── __init__.py
+├── __manifest__.py
 ├── data/
-│ └── mail_template_data.xml # Email template
+│   └── mail_template_data.xml          # Email template
 ├── models/
-│ ├── init.py
-│ └── study.py # Model chính
+│   ├── __init__.py
+│   └── study.py                        # Model chính
 ├── report/
-│ ├── init.py
-│ └── study_report.py # SQL View cho báo cáo
+│   ├── __init__.py
+│   └── study_report.py                 # SQL View cho báo cáo
 ├── security/
-│ ├── ir.model.access.csv # Quyền truy cập
-│ └── project_study_security.xml # Security groups & rules
+│   ├── ir.model.access.csv             # Quyền truy cập
+│   └── project_study_security.xml      # Security groups & rules
 ├── static/
-│ └── description/
-│ └── icon.png # Icon của module
+│   └── description/
+│       └── icon.png                    # Icon của module
 └── views/
-├── study_menus.xml # Menu items
-├── study_report_views.xml # Views cho báo cáo
-└── study_views.xml # Views chính
+    ├── study_menus.xml                 # Menu items
+    ├── study_report_views.xml          # Views cho báo cáo
+    └── study_views.xml                 # Views chính
+```
 
 ## 📊 Models
 
